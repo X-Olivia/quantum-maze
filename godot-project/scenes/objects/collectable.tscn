@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://2d2p3k850w4u"]
+
+[ext_resource type="Script" uid="uid://bqkw27ollaw0" path="res://scripts/objects/collectable.gd" id="1_54v7d"]
+[ext_resource type="Texture2D" uid="uid://h3vrnsuuxdjx" path="res://assets/images/objects/collectable.png" id="2_pmr10"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_00a0r"]
+radius = 25.0
+height = 50.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3cqwa"]
+resource_local_to_scene = true
+
+[node name="Collectable" type="Area2D" groups=["Collectable"]]
+script = ExtResource("1_54v7d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_00a0r")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3cqwa")
+texture = ExtResource("2_pmr10")

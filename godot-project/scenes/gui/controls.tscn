@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://01s4y1gc4osy"]
+
+[ext_resource type="Script" uid="uid://bay8pit3p1mi4" path="res://scripts/gui/controls.gd" id="1_cwpb3"]
+
+[node name="Controls" type="VBoxContainer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_right = 175.0
+offset_bottom = 317.0
+grow_horizontal = 2
+script = ExtResource("1_cwpb3")
+
+[node name="ControlsTitle" type="Label" parent="."]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="TopSeparator" type="HSeparator" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="Controls" type="RichTextLabel" parent="."]
+visible = false
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Basic[/b]
+Move: WASD or Arrow keys
+Toggle mode: SPACE
+Pause/Unpause: P or Escape
+Navigate Dialogue: Q
+
+[b]Particle Mode[/b]
+Pick up/drop prism: E
+Shoot photons: Left Click
+Dash: Shift
+Energy Shield: Right Click
+
+[b]Wave Mode[/b]
+Cycle between possibilities: Mouse Wheel
+Create possibility: E
+Create entanglement: Left or Right Click"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomSeparator" type="HSeparator" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Show Controls"
+
+[connection signal="toggled" from="CheckButton" to="." method="_on_control_visibility_toggled"]

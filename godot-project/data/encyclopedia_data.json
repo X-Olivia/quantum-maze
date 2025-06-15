@@ -1,0 +1,107 @@
+{
+  "items": {
+	"prism": {
+	  "name": "Prism",
+	  "description": "Provides energy and powers devices",
+	  "tutorial": "Place prisms on prism terminals to power it and activate connected components. Pick up and interact with [E] key. Also replenishes your energy if you are nearby.",
+	  "icon": "res://assets/images/objects/prism-sprite.png"
+	},
+	"energy_lamp": {
+	  "name": "Energy Lamp",
+	  "description": "A source of energy that powers various mechanisms.",
+	  "tutorial": "Energy lamps provide continuous power to connected devices. They cannot be moved or modified. Will also replenish your energy if you are nearby",
+	  "icon": "res://assets/images/objects/energy_lamp.png"
+	},
+	"particle_accelerator": {
+	  "name": "Particle Accelerator",
+	  "description": "Accelerates particles and emits them in a specific direction.",
+	  "tutorial": "Particle accelerator will shoot you towards a specific direction. Use it to traverse the maze quickly and avoid bottomless pits.",
+	  "icon": "res://assets/images/objects/particle-accelerator.png"
+	},
+	"energy_item": {
+	  "name": "Energy Item",
+	  "description": "A collectible that restores player's energy.",
+	  "tutorial": "Collect energy items to replenish your energy reserves, allowing you to use abilities such as shooting, parrying and dashing",
+	  "icon": "res://assets/images/objects/energy_item.png"
+	},
+	"ability_item": {
+	  "name": "Ability Item",
+	  "description": "Grants the player a new ability when collected.",
+	  "tutorial": "Finding ability items unlocks new powers and gameplay mechanics. Look for them around the maze.",
+	  "icon": "res://assets/images/objects/default_ability_item.png"
+	}, 
+	"collectable": {
+	  "name": "Collectable",
+	  "description": "A special collectible item that tracks completion.",
+	  "tutorial": "Often hidden behind challenging puzzles and around the maze, Find all collectables in each level to achieve 100% completion. Note: some collectibles can only be seen in particle mode, and others in wave mode. Optional and does not affect gameplay progression.",
+	  "icon": "res://assets/images/objects/collectable.png"
+	},
+	"goal": {
+	  "name": "Goal",
+	  "description": "Marks the completion point of a level.",
+	  "tutorial": "Reach the goal to complete the current level and progress to the next one.",
+	  "icon": "res://assets/images/objects/goal.png"
+	},
+	"checkpoint": {
+	  "name": "Checkpoint",
+	  "description": "Saves player progress when activated.",
+	  "tutorial": "Stand on a checkpoint to activate and save your progress. If you fail, you'll respawn at the last checkpoint you activated.",
+	  "icon": "res://assets/images/objects/checkpoint.png"
+	},
+	"chest": {
+	  "name": "Chest",
+	  "description": "Contains valuable items or abilities.",
+	  "tutorial": "Chests contain important items, abilities, or energy. To open, dash towards it or shoot a photon at it! (left click).",
+	  "icon": "res://assets/images/objects/chest_closed.png"
+	},
+	"observer": {
+	  "name": "Observer",
+	  "description": "Detects player presence when line of sight is established.",
+	  "tutorial": "Observers track your position and can trigger mechanisms. Use objects to block their line of sight when needed.",
+	  "icon": "res://assets/images/objects/eyes.png"
+	},
+	
+	"spotlight": {
+	  "name": "Spotlight",
+	  "description": "Emits a directed beam of light that can reveal hidden paths or trigger certain mechanisms.",
+	  "tutorial": "Spotlights illuminate areas and can activate light-sensitive devices. They may also reveal secrets in darkened areas. When detecting a player in wave mode, it will force you into particle mode. Be careful if you see one around spikes! (you'll die)",
+	  "icon": "res://assets/images/objects/playerlight.png"
+	},
+	"photon": {
+	  "name": "Photon",
+	  "description": "A quantum light particle with special properties.",
+	  "tutorial": "Photons behave according to quantum mechanics. They can exist in superposition and become entangled with other quantum objects.",
+	  "icon": "res://assets/images/objects/goodlook1.png"
+	},
+	"superposed_door": {
+	  "name": "Superposed Door",
+	  "description": "A quantum door that exists in multiple states simultaneously.",
+	  "tutorial": "Superposed doors can be both open and closed until observed. Use quantum mechanics to manipulate their state.",
+	  "icon": "res://assets/images/objects/superposed_door.png"
+	},
+	"certainty_machine": {
+	  "name": "Certainty Machine",
+	  "description": "Forces quantum objects into a definite state.",
+	  "tutorial": "Certainty machines collapse quantum superpositions into definite states. Use them to resolve uncertain quantum states.",
+	  "icon": "res://assets/images/objects/machine_hull.png"
+	},
+	"entanglement_machine": {
+	  "name": "Entanglement Machine",
+	  "description": "Creates quantum entanglement between compatible objects.",
+	  "tutorial": "Entanglement machines link quantum objects so they share states. When one object changes, its entangled partner changes correspondingly.",
+	  "icon": "res://assets/images/objects/machine_hull.png"
+	},
+	"reset_machine": {
+	  "name": "Reset Machine",
+	  "description": "Resets quantum objects to their original state.",
+	  "tutorial": "Reset machines return quantum objects to their initial conditions. Use them when you need to start over with quantum puzzles.",
+	  "icon": "res://assets/images/objects/reset.png"
+	},
+	"entanglement": {
+	  "name": "Entanglement",
+	  "description": "A quantum link between two or more objects.",
+	  "tutorial": "Entanglement links quantum objects' states. This connection persists regardless of distance, allowing for remote influence. For help with its controls, press escape.",
+	  "icon": "res://assets/images/objects/default_ability_item.png"
+	}
+  }
+} 

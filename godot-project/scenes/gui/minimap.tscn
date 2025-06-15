@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=3 uid="uid://btokw6rqfx7og"]
+
+[ext_resource type="Script" uid="uid://c2skdposqc5lv" path="res://scripts/gui/minimap.gd" id="1_wm0lj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hm4ok"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.223529, 0.223529, 0.223529, 1)
+corner_radius_top_left = 150
+corner_radius_top_right = 150
+corner_radius_bottom_right = 150
+corner_radius_bottom_left = 150
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_circle"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.192157, 0.333333, 0.470588, 1)
+corner_radius_top_left = 150
+corner_radius_top_right = 150
+corner_radius_bottom_right = 150
+corner_radius_bottom_left = 150
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hl2g6"]
+bg_color = Color(0.192157, 0.333333, 0.470588, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="Minimap" type="MarginContainer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_bottom = 320.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_wm0lj")
+
+[node name="CircleClip" type="Panel" parent="."]
+clip_children = 1
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hm4ok")
+
+[node name="ContentContainer" type="MarginContainer" parent="CircleClip"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MinimapViewport" type="SubViewportContainer" parent="CircleClip/ContentContainer"]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CircleClip/ContentContainer/MinimapViewport"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 4
+
+[node name="MinimapCamera" type="Camera2D" parent="CircleClip/ContentContainer/MinimapViewport/SubViewport"]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="CircleBorder" type="Panel" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_circle")
+
+[node name="PlayerMarker" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_hl2g6")

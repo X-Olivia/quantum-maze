@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgraxiwqkmoqj"]
+
+[ext_resource type="Script" uid="uid://ivjmm80fo27p" path="res://scripts/player/entanglement_ability.gd" id="1_hfnsn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8w8oj"]
+radius = 50.0
+
+[node name="EntanglementAbility" type="Area2D"]
+visible = false
+collision_mask = 14
+input_pickable = false
+monitoring = false
+monitorable = false
+script = ExtResource("1_hfnsn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8w8oj")

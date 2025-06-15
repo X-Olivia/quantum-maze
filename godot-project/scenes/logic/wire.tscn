@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnhfaibjtfjs1"]
+
+[ext_resource type="Script" uid="uid://jgntldchqp1n" path="res://scripts/logic/wire.gd" id="1_r0fxy"]
+
+[node name="Wire" type="Path2D"]
+z_index = -2
+script = ExtResource("1_r0fxy")

@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkw6ae1ipw5je"]
+
+[ext_resource type="Script" uid="uid://didoluktrh5dx" path="res://scripts/hazards/enemy.gd" id="1_8tbws"]
+[ext_resource type="Texture2D" uid="uid://dh8ilj8ni4jnq" path="res://assets/images/player/enermy.png" id="2_rkhir"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6j2gm"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4yh0f"]
+radius = 600.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6oajh"]
+radius = 800.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["Entangleable"]]
+z_index = 1
+collision_layer = 8
+collision_mask = 15
+wall_min_slide_angle = 0.0
+script = ExtResource("1_8tbws")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_rkhir")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6j2gm")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+avoidance_enabled = true
+
+[node name="StunnedTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="Aggro" type="Area2D" parent="."]
+visible = false
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro"]
+shape = SubResource("CircleShape2D_4yh0f")
+debug_color = Color(0.947641, 2.31028e-06, 0.582125, 0.42)
+
+[node name="Deaggro" type="Area2D" parent="."]
+visible = false
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deaggro"]
+shape = SubResource("CircleShape2D_6oajh")
+
+[connection signal="timeout" from="StunnedTimer" to="." method="_on_stunned_timer_timeout"]

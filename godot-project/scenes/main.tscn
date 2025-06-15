@@ -1,0 +1,1122 @@
+[gd_scene load_steps=39 format=3 uid="uid://bqy80p2yqkywu"]
+
+[ext_resource type="Script" uid="uid://cejc44f8tdpqf" path="res://scripts/game_manager.gd" id="1_f7ixg"]
+[ext_resource type="PackedScene" uid="uid://bulbd7pok2g1l" path="res://scenes/gui/hud.tscn" id="2_rn8eq"]
+[ext_resource type="Script" uid="uid://d2vycos5ti1t7" path="res://scripts/gui/level_cards.gd" id="3_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://bc5fsoljx03r1" path="res://assets/images/gui/logo.png" id="5_logo"]
+[ext_resource type="PackedScene" uid="uid://01s4y1gc4osy" path="res://scenes/gui/controls.tscn" id="6_eb6dy"]
+[ext_resource type="VideoStream" uid="uid://cir385so111b7" path="res://assets/videos/goal.ogv" id="6_goal"]
+[ext_resource type="Script" uid="uid://bmehohr2bbgap" path="res://scripts/gui/encyclopedia.gd" id="7_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://dujpp1ye64bu0" path="res://assets/images/player/player-particle.png" id="8_aq7a1"]
+[ext_resource type="Shader" uid="uid://ceexc4dx6ioa" path="res://assets/shaders/death_zone_mask.gdshader" id="9_nj2md"]
+[ext_resource type="Shader" uid="uid://cxisap0fv0p5c" path="res://assets/shaders/dissolve_scatter.gdshader" id="10_r8xuy"]
+[ext_resource type="Texture2D" uid="uid://coxeu7obayefa" path="res://assets/images/gui/frame.png" id="frame_texture"]
+[ext_resource type="Texture2D" uid="uid://cn6a4lhhpih2h" path="res://assets/images/gui/playback.png" id="playback_bg"]
+
+[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_jyhfs"]
+file = "res://assets/videos/start.ogv"
+
+[sub_resource type="Animation" id="Animation_e5v0j"]
+resource_name = "splash_fade"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VideoStreamPlayer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 7.5, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 7.5, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q37cy"]
+_data = {
+&"splash_fade": SubResource("Animation_e5v0j")
+}
+
+[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_menu"]
+file = "res://assets/videos/menu.ogv"
+
+[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_tbgi4"]
+file = "res://assets/videos/line.ogv"
+
+[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_tipki"]
+file = "res://assets/videos/dead.ogv"
+
+[sub_resource type="Animation" id="Animation_death_fadein"]
+resource_name = "death_fadein"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathVideo:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_death_fadeout"]
+resource_name = "death_fadeout"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathVideo:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_death"]
+_data = {
+&"fadein": SubResource("Animation_death_fadein"),
+&"fadeout": SubResource("Animation_death_fadeout")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_jnlk2"]
+font_size = 42
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb6dy"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trceg"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0.901961)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Animation" id="Animation_goal_transition"]
+resource_name = "goal_transition"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoalVideo:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.5),
+"transitions": PackedFloat32Array(2.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(15, 15)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("GoalVideo:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 2.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.1, 0.1, 0.1, 0.3), Color(0.05, 0.05, 0.05, 0.7), Color(0, 0, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GoalVideo:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(0.7, 0.7, 0.7, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_goal"]
+_data = {
+&"goal_transition": SubResource("Animation_goal_transition")
+}
+
+[sub_resource type="Animation" id="Animation_fade"]
+resource_name = "fade"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_unfade"]
+resource_name = "unfade"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_trans"]
+_data = {
+&"fade": SubResource("Animation_fade"),
+&"unfade": SubResource("Animation_unfade")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aedn6"]
+shader = ExtResource("9_nj2md")
+shader_parameter/radius = 1.0
+shader_parameter/center = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_death_zone_sink"]
+resource_name = "death_zone_sink"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaskedPlayer/PlayerSprite:material:shader_parameter/radius")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_death_zone"]
+_data = {
+&"death_zone_sink": SubResource("Animation_death_zone_sink")
+}
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_23qv5"]
+frequency = 0.02
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gvqmj"]
+width = 256
+height = 256
+seamless = true
+noise = SubResource("FastNoiseLite_23qv5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sckre"]
+shader = ExtResource("10_r8xuy")
+shader_parameter/progress = 0.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_gvqmj")
+shader_parameter/scatter_direction = Vector2(1.3, -0.5)
+shader_parameter/scatter_strength = 0.3
+shader_parameter/rotation_strength = 0.2
+
+[sub_resource type="Animation" id="Animation_default_death"]
+resource_name = "default_death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerImage:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_default_death"]
+_data = {
+&"default_death": SubResource("Animation_default_death")
+}
+
+[node name="Main" type="Node"]
+script = ExtResource("1_f7ixg")
+
+[node name="SplashScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 10
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="SplashScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="SplashScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = SubResource("VideoStreamTheora_jyhfs")
+autoplay = true
+expand = true
+
+[node name="Logo" type="TextureRect" parent="SplashScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -180.0
+offset_right = 10.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("5_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SplashScreen"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_q37cy")
+}
+
+[node name="HUD" parent="." instance=ExtResource("2_rn8eq")]
+unique_name_in_owner = true
+layer = 0
+visible = false
+
+[node name="Menus" type="CanvasLayer" parent="."]
+
+[node name="Main" type="Panel" parent="Menus"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundVideo" type="VideoStreamPlayer" parent="Menus/Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = SubResource("VideoStreamTheora_menu")
+expand = true
+loop = true
+
+[node name="Frame" type="TextureRect" parent="Menus/Main"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("frame_texture")
+expand_mode = 1
+
+[node name="Buttons" type="VBoxContainer" parent="Menus/Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = -324.0
+offset_right = 46.5
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Continue" type="Button" parent="Menus/Main/Buttons"]
+layout_mode = 2
+text = "Continue"
+
+[node name="NewGame" type="Button" parent="Menus/Main/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "New Game"
+
+[node name="Options" type="Button" parent="Menus/Main/Buttons"]
+layout_mode = 2
+text = "Options"
+
+[node name="Exit" type="Button" parent="Menus/Main/Buttons"]
+layout_mode = 2
+text = "Exit"
+
+[node name="LevelSelect" type="Panel" parent="Menus"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundVideo" type="VideoStreamPlayer" parent="Menus/LevelSelect"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = SubResource("VideoStreamTheora_menu")
+expand = true
+loop = true
+
+[node name="Frame" type="TextureRect" parent="Menus/LevelSelect"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("frame_texture")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/LevelSelect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 202.0
+offset_top = 88.0
+offset_right = 202.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.648706, 0.684216)
+
+[node name="LevelContainer" type="HBoxContainer" parent="Menus/LevelSelect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.9
+alignment = 1
+
+[node name="PrevButton" type="Button" parent="Menus/LevelSelect/VBoxContainer/LevelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 100)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = "<"
+
+[node name="CenterContainer" type="CenterContainer" parent="Menus/LevelSelect/VBoxContainer/LevelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/LevelSelect/VBoxContainer/LevelContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -150
+
+[node name="LevelCards" type="HBoxContainer" parent="Menus/LevelSelect/VBoxContainer/LevelContainer/CenterContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+script = ExtResource("3_jyhfs")
+
+[node name="NextButton" type="Button" parent="Menus/LevelSelect/VBoxContainer/LevelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 100)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = ">"
+
+[node name="Back" type="Button" parent="Menus/LevelSelect"]
+layout_mode = 0
+offset_left = 201.0
+offset_top = 106.0
+offset_right = 251.0
+offset_bottom = 131.0
+size_flags_vertical = 4
+text = "Back"
+
+[node name="Pause" type="Panel" parent="Menus"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Menus/Pause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Continue" type="Button" parent="Menus/Pause/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Continue"
+
+[node name="Options" type="Button" parent="Menus/Pause/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Options"
+
+[node name="Quit" type="Button" parent="Menus/Pause/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Quit"
+
+[node name="LevelComplete" type="Panel" parent="Menus"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundVideo" type="VideoStreamPlayer" parent="Menus/LevelComplete"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = SubResource("VideoStreamTheora_tbgi4")
+expand = true
+loop = true
+
+[node name="Buttons" type="VBoxContainer" parent="Menus/LevelComplete"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="NextLevel" type="Button" parent="Menus/LevelComplete/Buttons"]
+layout_mode = 2
+text = "Next Level"
+
+[node name="Quit" type="Button" parent="Menus/LevelComplete/Buttons"]
+layout_mode = 2
+text = "Quit"
+
+[node name="ConfirmReset" type="Panel" parent="Menus"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/ConfirmReset"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Menus/ConfirmReset/VBoxContainer"]
+layout_mode = 2
+text = "Are you sure?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Menus/ConfirmReset/VBoxContainer"]
+layout_mode = 2
+
+[node name="No" type="Button" parent="Menus/ConfirmReset/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No, Keep save data"
+
+[node name="Yes" type="Button" parent="Menus/ConfirmReset/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Yes, Delete save data"
+
+[node name="Options" type="Panel" parent="Menus"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Menus/Options"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -20.0
+offset_right = 22.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Controls" parent="Menus/Options/Buttons" instance=ExtResource("6_eb6dy")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menus/Options/Buttons"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menus/Options/Buttons/HBoxContainer"]
+layout_mode = 2
+text = "Volume: "
+
+[node name="VolumeSlider" type="HSlider" parent="Menus/Options/Buttons/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+
+[node name="CheckButton" type="CheckButton" parent="Menus/Options/Buttons"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="Back" type="Button" parent="Menus/Options/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
+
+[node name="Death" type="Panel" parent="Menus"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeathVideo" type="VideoStreamPlayer" parent="Menus/Death"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = SubResource("VideoStreamTheora_tipki")
+autoplay = true
+expand = true
+loop = true
+
+[node name="ColorRect" type="ColorRect" parent="Menus/Death"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Menus/Death"]
+libraries = {
+&"": SubResource("AnimationLibrary_death")
+}
+
+[node name="Buttons" type="VBoxContainer" parent="Menus/Death"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="YouDied" type="Label" parent="Menus/Death/Buttons"]
+layout_mode = 2
+text = "YOU DIED!"
+label_settings = SubResource("LabelSettings_jnlk2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Respawn" type="Button" parent="Menus/Death/Buttons"]
+layout_mode = 2
+text = "Respawn"
+
+[node name="Quit" type="Button" parent="Menus/Death/Buttons"]
+layout_mode = 2
+text = "Quit"
+
+[node name="StoryPlayback" type="Panel" parent="Menus"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="Menus/StoryPlayback"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("playback_bg")
+expand_mode = 1
+
+[node name="StoryContainer" type="VBoxContainer" parent="Menus/StoryPlayback"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Spacer" type="Control" parent="Menus/StoryPlayback/StoryContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="StoryPanel" type="Panel" parent="Menus/StoryPlayback/StoryContainer"]
+custom_minimum_size = Vector2(691, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/StoryPlayback/StoryContainer/StoryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -8.0
+offset_right = 1.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="StoryText" type="RichTextLabel" parent="Menus/StoryPlayback/StoryContainer/StoryPanel/MarginContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Dear Explorer,
+
+Welcome to a forgotten yet undeniably real dimension — the Quantum Maze.
+
+In the ancient myths of science, the universe was woven from hidden rhythms,
+Reality itself no more than an illusion that emerges under observation,
+And a mere touch of consciousness is enough to alter the essence of existence.
+
+Now, you shall become a minuscule particle,
+Falling into a fragmented realm where everything is entangled, everything connected.
+
+Here, there is no absolute certainty — only randomness and possibility;
+Here, there is no isolated being — only entanglement and resonance;
+Here, there is no fixed causality — only collapse and reconstruction triggered by observation.
+
+Each maze is a question posed to your very existence: Who are you?
+Each puzzle is the universe’s reply to the question: Who observes?
+
+You will witness the splitting and reunion of particles,
+Feel the expansion and interference of waves,
+Walk through the haze of uncertainty, and choose amidst superpositions.
+
+But remember — you are not the only observer.
+And perhaps, you are but a part of this grand experiment.
+Randomness is not mere fate’s dice roll;
+To seek order in chaos, to find clarity in uncertainty —
+That is the purpose of your journey.
+
+Step into this world.
+Seek the truth, not just to escape,
+But to understand:
+
+— How the reality we know is born in the act of observation.
+
+"
+autowrap_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Menus/StoryPlayback/StoryContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+alignment = 1
+
+[node name="ContinueButton" type="Button" parent="Menus/StoryPlayback/StoryContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Continue"
+
+[node name="Back" type="Button" parent="Menus/StoryPlayback"]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 110.0
+offset_right = 254.0
+offset_bottom = 135.0
+size_flags_vertical = 4
+text = "Back"
+
+[node name="Encyclopedia" type="Panel" parent="Menus"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eb6dy")
+script = ExtResource("7_ya4ey")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Menus/Encyclopedia"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 300
+
+[node name="LeftPanel" type="VBoxContainer" parent="Menus/Encyclopedia/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Menus/Encyclopedia/HSplitContainer/LeftPanel"]
+layout_mode = 2
+text = "Items"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Menus/Encyclopedia/HSplitContainer/LeftPanel"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Menus/Encyclopedia/HSplitContainer/LeftPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemGrid" type="GridContainer" parent="Menus/Encyclopedia/HSplitContainer/LeftPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="RightPanel" type="VBoxContainer" parent="Menus/Encyclopedia/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ItemIcon" type="TextureRect" parent="Menus/Encyclopedia/HSplitContainer/RightPanel"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemNameLabel" type="Label" parent="Menus/Encyclopedia/HSplitContainer/RightPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Item Name"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Menus/Encyclopedia/HSplitContainer/RightPanel"]
+layout_mode = 2
+
+[node name="ItemDescriptionLabel" type="Label" parent="Menus/Encyclopedia/HSplitContainer/RightPanel"]
+layout_mode = 2
+text = "Item Description"
+autowrap_mode = 3
+
+[node name="Panel" type="Panel" parent="Menus/Encyclopedia/HSplitContainer/RightPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_trceg")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/Encyclopedia/HSplitContainer/RightPanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ItemTutorialText" type="RichTextLabel" parent="Menus/Encyclopedia/HSplitContainer/RightPanel/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/line_separation = 5
+bbcode_enabled = true
+text = "Item tutorial and usage information"
+
+[node name="CloseButton" type="Button" parent="Menus/Encyclopedia/HSplitContainer/RightPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+
+[node name="GoalTransitionLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 4
+visible = false
+
+[node name="GoalVideo" type="VideoStreamPlayer" parent="GoalTransitionLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 324)
+stream = ExtResource("6_goal")
+autoplay = true
+expand = true
+
+[node name="ColorRect" type="ColorRect" parent="GoalTransitionLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GoalTransitionLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_goal")
+}
+
+[node name="TransitionLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 6
+
+[node name="ColorRect" type="ColorRect" parent="TransitionLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_trans")
+}
+
+[node name="DeathZoneLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 5
+visible = false
+
+[node name="MaskedPlayer" type="Control" parent="DeathZoneLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PlayerSprite" type="TextureRect" parent="DeathZoneLayer/MaskedPlayer"]
+material = SubResource("ShaderMaterial_aedn6")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("8_aq7a1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DeathZoneLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_death_zone")
+}
+
+[node name="DefaultDeathLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 5
+visible = false
+
+[node name="PlayerImage" type="TextureRect" parent="DefaultDeathLayer"]
+material = SubResource("ShaderMaterial_sckre")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("8_aq7a1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DefaultDeathLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_default_death")
+}
+
+[node name="EndLayer" type="CanvasLayer" parent="."]
+layer = 100
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="EndLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="EndVideo" type="VideoStreamPlayer" parent="EndLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand = true
+
+[connection signal="finished" from="SplashScreen/VideoStreamPlayer" to="." method="_on_video_finished"]
+[connection signal="pressed" from="Menus/Main/Buttons/Exit" to="." method="exit_game"]
+[connection signal="pressed" from="Menus/LevelSelect/Back" to="." method="back_to_main_menu"]
+[connection signal="pressed" from="Menus/Pause/Buttons/Continue" to="." method="handle_pausing"]
+[connection signal="pressed" from="Menus/Pause/Buttons/Quit" to="." method="open_level_select_menu"]
+[connection signal="pressed" from="Menus/LevelComplete/Buttons/NextLevel" to="." method="load_next_level"]
+[connection signal="pressed" from="Menus/LevelComplete/Buttons/Quit" to="." method="open_level_select_menu"]
+[connection signal="pressed" from="Menus/ConfirmReset/VBoxContainer/Buttons/No" to="." method="open_main_menu"]
+[connection signal="pressed" from="Menus/ConfirmReset/VBoxContainer/Buttons/Yes" to="." method="wipe_save_data"]
+[connection signal="drag_ended" from="Menus/Options/Buttons/HBoxContainer/VolumeSlider" to="." method="_on_volume_change"]
+[connection signal="toggled" from="Menus/Options/Buttons/CheckButton" to="." method="_on_fullscreen_toggled"]
+[connection signal="pressed" from="Menus/Options/Buttons/Back" to="." method="open_previous_menu"]
+[connection signal="pressed" from="Menus/Death/Buttons/Respawn" to="." method="respawn"]
+[connection signal="pressed" from="Menus/Death/Buttons/Quit" to="." method="open_level_select_menu"]
+[connection signal="pressed" from="Menus/StoryPlayback/Back" to="." method="back_to_main_menu"]
+[connection signal="pressed" from="Menus/Encyclopedia/HSplitContainer/RightPanel/CloseButton" to="." method="close_current_menu"]

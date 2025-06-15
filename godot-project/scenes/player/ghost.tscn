@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://pgkomx34v4gn"]
+
+[ext_resource type="PackedScene" uid="uid://dc48ny41eioxu" path="res://scenes/player/player.tscn" id="1_16qp1"]
+[ext_resource type="Script" path="res://scripts/player/ghost.gd" id="2_0ius3"]
+
+[node name="Ghost" instance=ExtResource("1_16qp1")]
+modulate = Color(1, 1, 1, 0.498039)
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("2_0ius3")

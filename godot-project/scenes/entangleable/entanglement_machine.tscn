@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://bvyov3w1xp0qi"]
+
+[ext_resource type="Script" uid="uid://d24u4y0g27n6h" path="res://scripts/entangleable/entanglement_machine.gd" id="1_fprco"]
+[ext_resource type="Texture2D" uid="uid://nhx4dec2vvlp" path="res://assets/images/objects/machine_hull.png" id="1_x5st5"]
+[ext_resource type="Texture2D" uid="uid://di506rtbe3nfb" path="res://assets/images/objects/machine_button.png" id="2_7yxy3"]
+[ext_resource type="Texture2D" uid="uid://bqgeix5p18od3" path="res://assets/images/objects/screen_sprites.png" id="3_51db3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxbi1"]
+size = Vector2(100, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhche"]
+size = Vector2(70, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjtkt"]
+atlas = ExtResource("3_51db3")
+region = Rect2(324, 0, 144, 188)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h41wg"]
+atlas = ExtResource("3_51db3")
+region = Rect2(162, 0, 144, 188)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buq6n"]
+atlas = ExtResource("3_51db3")
+region = Rect2(0, 0, 144, 188)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4oa5m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjtkt")
+}],
+"loop": true,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h41wg")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_buq6n")
+}],
+"loop": true,
+"name": &"?",
+"speed": 5.0
+}]
+
+[node name="Entanglement Machine" type="Node2D" groups=["Entangleable"]]
+script = ExtResource("1_fprco")
+
+[node name="Hull" type="StaticBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -10)
+collision_layer = 2
+collision_mask = 57
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hull"]
+shape = SubResource("RectangleShape2D_cxbi1")
+
+[node name="EntanglementMachine" type="Sprite2D" parent="Hull"]
+position = Vector2(9, -1)
+texture = ExtResource("1_x5st5")
+
+[node name="Button" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 30)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_jhche")
+
+[node name="EntanglementMachineButton" type="Sprite2D" parent="Button/CollisionShape2D"]
+position = Vector2(-13, 2)
+rotation = 3.13826
+texture = ExtResource("2_7yxy3")
+
+[node name="Screen" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(-2, -20)
+sprite_frames = SubResource("SpriteFrames_4oa5m")
+animation = &"1"
+autoplay = "?"
+
+[node name="CertaintyTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="Button" to="." method="_on_button_body_entered"]
+[connection signal="timeout" from="CertaintyTimer" to="." method="_on_certainty_timer_timeout"]

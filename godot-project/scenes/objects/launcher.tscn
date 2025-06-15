@@ -1,0 +1,137 @@
+[gd_scene load_steps=8 format=3 uid="uid://dc4nx0xy1vq01"]
+
+[ext_resource type="Script" uid="uid://ca0t1nurf0k6k" path="res://scripts/objects/launcher.gd" id="1_ydiow"]
+[ext_resource type="Texture2D" uid="uid://dcnqyamu4ymw" path="res://assets/images/electrical outputs/launcher.png" id="2_w6ynp"]
+[ext_resource type="Texture2D" uid="uid://cl1dtdtubm8es" path="res://assets/images/electrical outputs/prisma.png" id="3_vl3k1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x3ga0"]
+size = Vector2(183, 86.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bcdef"]
+size = Vector2(85.0081, 79.9903)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_46okm"]
+size = Vector2(65.4933, 105.003)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8wqa"]
+size = Vector2(90, 86)
+
+[node name="Launcher" type="StaticBody2D"]
+collision_layer = 2
+script = ExtResource("1_ydiow")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -73)
+texture = ExtResource("2_w6ynp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -15.75)
+shape = SubResource("RectangleShape2D_x3ga0")
+
+[node name="BeamLine" type="Line2D" parent="."]
+z_index = 3
+position = Vector2(-1, -13)
+points = PackedVector2Array(0, -40, -0.688477, -178.385, -1, -241)
+width = 2.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-2, -50)
+target_position = Vector2(-1, -204)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="RightBeam" type="Line2D" parent="."]
+z_index = 3
+position = Vector2(-2.8215, -349.004)
+rotation = 0.102856
+scale = Vector2(0.91141, 1.011)
+points = PackedVector2Array(0, 0, -56.2415, -258.272)
+width = 2.0
+
+[node name="LeftBeam" type="Line2D" parent="."]
+z_index = 3
+position = Vector2(-2, -346)
+rotation = -0.040218
+points = PackedVector2Array(0, 0, 34.7561, -266.818)
+width = 2.0
+
+[node name="RightRayCast" type="RayCast2D" parent="."]
+position = Vector2(-5, -345)
+target_position = Vector2(22, -270)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="RightBeam2" type="Line2D" parent="."]
+z_index = 3
+position = Vector2(-1.82155, -825.004)
+rotation = 0.102856
+points = PackedVector2Array(-1.44781, 7.19067, 78.1829, -390.085)
+width = 2.0
+
+[node name="LeftBeam2" type="Line2D" parent="."]
+z_index = 3
+position = Vector2(0.999947, -822)
+rotation = -0.040218
+points = PackedVector2Array(-6.15593, 3.75549, -114.495, -387.917)
+width = 2.0
+
+[node name="RightRayCast2" type="RayCast2D" parent="."]
+position = Vector2(-4.00005, -821)
+target_position = Vector2(114, -387)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="LeftRayCast2" type="RayCast2D" parent="."]
+position = Vector2(0, -806)
+target_position = Vector2(-134, -402)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="LeftRayCast" type="RayCast2D" parent="."]
+position = Vector2(-1, -343)
+target_position = Vector2(-27, -270)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="PrismSprite" type="Sprite2D" parent="."]
+position = Vector2(-1.1396, -298.07)
+rotation = -4.7022
+scale = Vector2(0.990888, 0.981302)
+texture = ExtResource("3_vl3k1")
+
+[node name="PrismCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.979943, -297.5)
+rotation = -1.56634
+shape = SubResource("RectangleShape2D_bcdef")
+
+[node name="CombinerSprite" type="Sprite2D" parent="."]
+position = Vector2(1, -644)
+rotation = 3.16841
+texture = ExtResource("3_vl3k1")
+
+[node name="CombinerSprite2" type="Sprite2D" parent="." groups=["PrismFinalSplitter"]]
+position = Vector2(-3, -776)
+rotation = -1.59248
+texture = ExtResource("3_vl3k1")
+
+[node name="CombinerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-1.51373, -648.745)
+rotation = -1.57403
+shape = SubResource("RectangleShape2D_46okm")
+
+[node name="OutputRayCast" type="RayCast2D" parent="."]
+position = Vector2(-5, -686)
+target_position = Vector2(-1, -65)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="OutputBeam" type="Line2D" parent="."]
+z_index = 3
+position = Vector2(-2, -689)
+points = PackedVector2Array(-3, 5, -3, -43)
+width = 2.0
+
+[node name="CombinerCollision2" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -774)
+shape = SubResource("RectangleShape2D_f8wqa")

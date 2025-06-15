@@ -1,0 +1,1 @@
+Spotlight-like beams that forcibly collapse the player into a particle when a possibility enters it.

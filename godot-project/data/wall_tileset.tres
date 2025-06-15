@@ -1,0 +1,51 @@
+[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://blvk2refa22a8"]
+
+[ext_resource type="Texture2D" uid="uid://bschhb3cjobfe" path="res://assets/images/tilemaps/wall-tiles.png" id="1_ka756"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lqm6s"]
+friction = 0.5
+rough = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6k6gt"]
+texture = ExtResource("1_ka756")
+texture_region_size = Vector2i(100, 100)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
+0:0/0/custom_data_0 = "default wall"
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
+1:0/0/custom_data_0 = "breakable wall"
+1:0/0/custom_data_1 = true
+1:0/0/custom_data_3 = true
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
+2:0/0/custom_data_0 = "reinforced wall"
+2:0/0/custom_data_2 = true
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, 50, 50, 50, 50, -50, 10, -50)
+3:0/0/physics_layer_0/polygon_1/points = PackedVector2Array(-10, 50, -10, -50, -50, -50, -50, 50)
+3:0/0/custom_data_0 = "v slit"
+3:0/0/custom_data_3 = true
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-50, 10, -50, 50, 50, 50, 50, 10)
+4:0/0/physics_layer_0/polygon_1/points = PackedVector2Array(-50, -10, 50, -10, 50, -50, -50, -50)
+4:0/0/custom_data_0 = "h slit"
+4:0/0/custom_data_3 = true
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
+5:0/0/custom_data_0 = "white wall"
+
+[resource]
+tile_size = Vector2i(100, 100)
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 57
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_lqm6s")
+custom_data_layer_0/name = "name"
+custom_data_layer_0/type = 4
+custom_data_layer_1/name = "breakable"
+custom_data_layer_1/type = 1
+custom_data_layer_2/name = "untunnelable"
+custom_data_layer_2/type = 1
+custom_data_layer_3/name = "transparent"
+custom_data_layer_3/type = 1
+sources/0 = SubResource("TileSetAtlasSource_6k6gt")

@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://1s437l61ije3"]
+
+[ext_resource type="Texture2D" uid="uid://nhx4dec2vvlp" path="res://assets/images/objects/machine_hull.png" id="1_2xdne"]
+[ext_resource type="Script" uid="uid://5woa6l1wjkge" path="res://scripts/entangleable/certainty_machine.gd" id="1_y8kbl"]
+[ext_resource type="Texture2D" uid="uid://x3rcn7srek6w" path="res://assets/images/objects/eyes.png" id="3_wc3u2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jiqwa"]
+size = Vector2(100, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4s5n"]
+atlas = ExtResource("3_wc3u2")
+region = Rect2(210, 46, 100, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fse02"]
+atlas = ExtResource("3_wc3u2")
+region = Rect2(10, 46, 100, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3tmg"]
+atlas = ExtResource("3_wc3u2")
+region = Rect2(110, 46, 100, 107)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x45wn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4s5n")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fse02")
+}],
+"loop": true,
+"name": &"narrow",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3tmg")
+}],
+"loop": true,
+"name": &"wide",
+"speed": 5.0
+}]
+
+[node name="Certainty Machine" type="StaticBody2D" groups=["Entangleable"]]
+collision_layer = 2
+collision_mask = 57
+script = ExtResource("1_y8kbl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jiqwa")
+
+[node name="MachineHull" type="Sprite2D" parent="."]
+position = Vector2(10, 0)
+texture = ExtResource("1_2xdne")
+
+[node name="Eye" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_x45wn")
+animation = &"narrow"
+autoplay = "narrow"
+frame_progress = 0.0710482

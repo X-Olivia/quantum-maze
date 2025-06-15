@@ -1,0 +1,29 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Godot files
+.godot/
+.import/
+export_presets.cfg
+
+# Large binary files (releases)
+releases/
+*.exe
+*.x86_64
+*.app/
+
+# Large media files
+*.mp4
+*.mov
+*.avi
+*.ogv
+
+# Large cutscene files
+original quality cutscenes/
+
+# PDF reports (optional - uncomment if you want to exclude)
+# *.pdf
+
+# Backup directories
+*-backup/ 

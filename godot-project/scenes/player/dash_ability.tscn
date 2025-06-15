@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://de86ml1dncv3y"]
+
+[ext_resource type="Script" uid="uid://cfs3rev116eem" path="res://scripts/player/dash_ability.gd" id="1_gskla"]
+[ext_resource type="Texture2D" uid="uid://csluls1a3r78x" path="res://assets/images/particles/flame.png" id="2_mm34t"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c61vw"]
+particle_flag_disable_z = true
+angle_min = -180.0
+angle_max = 180.0
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -200.0
+angular_velocity_max = -1.60933e-05
+gravity = Vector3(0, 0, 0)
+damping_min = 100.0
+damping_max = 100.0
+scale_min = 0.5
+scale_max = 1.5
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_amssx"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 45.0
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 500.0
+angular_velocity_min = -500.0
+angular_velocity_max = -1.60933e-05
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -500.0
+radial_accel_max = -500.0
+damping_min = 200.0
+damping_max = 300.0
+scale_max = 2.0
+
+[node name="DashAbility" type="Node2D"]
+script = ExtResource("1_gskla")
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="SafetyTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="FlamingTrail" type="GPUParticles2D" parent="."]
+z_index = -1
+emitting = false
+amount = 100
+texture = ExtResource("2_mm34t")
+process_material = SubResource("ParticleProcessMaterial_c61vw")
+
+[node name="DashBurst" type="GPUParticles2D" parent="."]
+z_index = -1
+emitting = false
+amount = 150
+texture = ExtResource("2_mm34t")
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_amssx")
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="SafetyTimer" to="." method="_on_safety_timer_timeout"]

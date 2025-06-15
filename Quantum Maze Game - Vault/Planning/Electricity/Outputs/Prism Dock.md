@@ -1,0 +1,1 @@
+A permanent electricity source when holding an [[Energy Prism]].

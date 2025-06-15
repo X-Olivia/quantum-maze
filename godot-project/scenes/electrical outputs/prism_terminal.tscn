@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdrobvvdoiuwl"]
+
+[ext_resource type="Script" uid="uid://clytpmfp6sl4f" path="res://scripts/electrical outputs/prism_terminal.gd" id="1_mjml1"]
+[ext_resource type="Texture2D" uid="uid://bs5x8te15yv5d" path="res://assets/images/electrical outputs/prism_terminal.png" id="2_t4bvw"]
+
+[node name="PrismTerminal" type="Area2D" groups=["Output"]]
+z_index = -1
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_mjml1")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1.2, 4.5)
+polygon = PackedVector2Array(0, -69, -59, 36, 65, 36)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.2, -10.5)
+texture = ExtResource("2_t4bvw")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

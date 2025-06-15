@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpciphlbmrmpw"]
+
+[ext_resource type="Texture2D" uid="uid://7j1kluqigj8p" path="res://assets/images/electrical inputs/door.png" id="1_5sikh"]
+[ext_resource type="Script" uid="uid://cu2m1087sg0mk" path="res://scripts/electrical inputs/door.gd" id="1_pjyud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6dhq"]
+size = Vector2(100, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0wgv"]
+size = Vector2(100, 50)
+
+[node name="Door" type="Node2D" groups=["Input"]]
+script = ExtResource("1_pjyud")
+
+[node name="Left" type="StaticBody2D" parent="."]
+position = Vector2(-100, 0)
+collision_layer = 2
+collision_mask = 25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2(50, 0)
+shape = SubResource("RectangleShape2D_e6dhq")
+
+[node name="Sprite2D" type="Sprite2D" parent="Left"]
+position = Vector2(56, -28)
+texture = ExtResource("1_5sikh")
+
+[node name="Right" type="StaticBody2D" parent="."]
+position = Vector2(100, 0)
+collision_layer = 2
+collision_mask = 25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2(-50, 0)
+shape = SubResource("RectangleShape2D_w0wgv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Right"]
+position = Vector2(-55, -28)
+scale = Vector2(-1, 1)
+texture = ExtResource("1_5sikh")

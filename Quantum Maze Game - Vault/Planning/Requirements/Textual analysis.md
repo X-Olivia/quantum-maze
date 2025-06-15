@@ -1,0 +1,1 @@
+To identify key requirements and stakeholders, we conducted textual analysis on the brief. We discovered four different areas we would like to focus our attention during development:![[textual analysis description.png]]![[textual analysis.png]]

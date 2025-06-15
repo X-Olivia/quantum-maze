@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqoeequ06aj46"]
+
+[ext_resource type="Script" uid="uid://ctpefastpuedi" path="res://scripts/electrical outputs/heavy_button.gd" id="1_j2t51"]
+[ext_resource type="Script" path="res://scripts/electrical outputs/button.gd" id="2_gxm61"]
+[ext_resource type="Texture2D" uid="uid://dpgfb2cju6nxa" path="res://assets/images/electrical outputs/heavy_button.png" id="2_p4h45"]
+[ext_resource type="Texture2D" uid="uid://d157y4mvj3enx" path="res://assets/images/electrical outputs/heavy_button_base.png" id="3_nguv7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkg4y"]
+size = Vector2(130, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pljre"]
+size = Vector2(134, 65)
+
+[node name="Heavy Button" type="Node2D" groups=["Output"]]
+script = ExtResource("1_j2t51")
+
+[node name="Collision" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -71)
+collision_layer = 64
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+shape = SubResource("RectangleShape2D_tkg4y")
+
+[node name="Button" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 25
+script = ExtResource("2_gxm61")
+
+[node name="Button" type="Sprite2D" parent="Button"]
+position = Vector2(0, -35)
+texture = ExtResource("2_p4h45")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button"]
+position = Vector2(0, -38)
+shape = SubResource("RectangleShape2D_pljre")
+
+[node name="Base" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 25
+metadata/_edit_group_ = true
+
+[node name="HeavyButtonBase" type="Sprite2D" parent="Base"]
+position = Vector2(-2, 2)
+texture = ExtResource("3_nguv7")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Base"]
+polygon = PackedVector2Array(-82, -20, 0, 7, 82, -20, 107, 32, -108, 33)

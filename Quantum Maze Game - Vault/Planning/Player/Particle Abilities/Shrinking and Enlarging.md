@@ -1,0 +1,1 @@
+Ability to shrink particle to become smaller, using E = mc^2 to convert the particles mass into energy and vice versa. Maybe you can access smaller spaces using this? Or you can become bigger and can engulf smaller partciles? not sure about the bigger one but shrinking is fun  

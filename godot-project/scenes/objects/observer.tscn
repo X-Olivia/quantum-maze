@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx55hrg3ca2au"]
+
+[ext_resource type="Script" uid="uid://bjkifijuftbet" path="res://scripts/objects/observer.gd" id="1_2k3u4"]
+[ext_resource type="Texture2D" uid="uid://cmcspicmkyse3" path="res://assets/images/objects/energy_lamp.png" id="2_0a7oj"]
+[ext_resource type="Texture2D" uid="uid://cima3alpf2g8r" path="res://assets/images/objects/light.tres" id="3_4ypww"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kc0fs"]
+size = Vector2(15, 100)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_iobih"]
+polygon = PackedVector2Array(8, -48, -8, -48, -8, 48, 8, 48, 7, 1, 0, -2, 0, -2, 7, -5)
+
+[node name="Observer" type="Node2D" groups=["Input", "observers"]]
+script = ExtResource("1_2k3u4")
+
+[node name="Base" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 57
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base"]
+shape = SubResource("RectangleShape2D_kc0fs")
+
+[node name="EnergyLamp" type="Sprite2D" parent="Base"]
+texture = ExtResource("2_0a7oj")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(0, 2)
+occluder = SubResource("OccluderPolygon2D_iobih")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(2, 0)
+scale = Vector2(1.5, 1.5)
+color = Color(0.88, 0.88, 0.88, 1)
+energy = 5.36
+shadow_enabled = true
+texture = ExtResource("3_4ypww")
+texture_scale = 1.5
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="PointLight2D"]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PointLight2D/Area2D"]
+polygon = PackedVector2Array(0, 0, 117.333, -58.6667, 131.333, -28, 136.667, -2, 133.333, 28, 120.667, 54.6667)
+
+[connection signal="area_entered" from="PointLight2D/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="PointLight2D/Area2D" to="." method="_on_area_2d_area_exited"]

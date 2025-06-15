@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dibib8pqxce2f"]
+
+[ext_resource type="Script" uid="uid://cvm7ggqq0xbk3" path="res://scripts/electrical outputs/switch.gd" id="1_e5b6e"]
+[ext_resource type="Texture2D" uid="uid://cm2g1ebvq77n0" path="res://assets/images/electrical outputs/switch.png" id="2_f0q23"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m3iv0"]
+radius = 24.0
+
+[node name="Switch" type="StaticBody2D" groups=["Output"]]
+collision_layer = 2
+script = ExtResource("1_e5b6e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.349066
+texture = ExtResource("2_f0q23")
+centered = false
+offset = Vector2(-16, -142.5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(96, -35)
+rotation = -0.349066
+polygon = PackedVector2Array(-101, -21, -83, -47, -61, -62, -45, -64, -36, -45, 43, -13, 52, -21, 64, -25, 78, -24, 90, -16, 95, -1, 93, 14, 85, 23, 75, 28, 65, 29, 56, 27, 48, 21, 42, 13, -17, 41, -51, 74, -65, 68, -91, 48, -103, 19)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(161, -56)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.373047, -6.7724)
+shape = SubResource("CircleShape2D_m3iv0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

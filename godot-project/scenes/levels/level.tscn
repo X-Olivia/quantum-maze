@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://c3n10noykemdl"]
+
+[ext_resource type="Script" uid="uid://bevd1mxhsxx2k" path="res://scripts/logic/level_manager.gd" id="1_vhw8d"]
+[ext_resource type="Script" uid="uid://n0o56tlanrxs" path="res://scripts/logic/wall_tiles.gd" id="2_2h3g2"]
+[ext_resource type="TileSet" uid="uid://blvk2refa22a8" path="res://data/wall_tileset.tres" id="2_urvlt"]
+[ext_resource type="Script" uid="uid://cbsu1jy6invi4" path="res://scripts/logic/player_manager.gd" id="3_axocn"]
+[ext_resource type="Script" uid="uid://b6u1y21i57t4s" path="res://scripts/logic/floor_tiles.gd" id="4_35ncf"]
+[ext_resource type="TileSet" uid="uid://bxmumu016ytoa" path="res://data/floor_tileset.tres" id="4_d4w6o"]
+[ext_resource type="Script" uid="uid://dwfbtu1c2ornn" path="res://scripts/logic/nav_autobuilder.gd" id="7_mbbpy"]
+
+[node name="Level" type="Node"]
+script = ExtResource("1_vhw8d")
+
+[node name="WallTiles" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+z_index = 10
+tile_set = ExtResource("2_urvlt")
+script = ExtResource("2_2h3g2")
+metadata/_edit_lock_ = true
+
+[node name="FloorTiles" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+z_index = -10
+tile_set = ExtResource("4_d4w6o")
+navigation_enabled = false
+script = ExtResource("4_35ncf")
+metadata/_edit_lock_ = true
+
+[node name="NavRegion" type="NavigationRegion2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_mbbpy")
+metadata/_edit_lock_ = true
+
+[node name="PlayerManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_axocn")
+metadata/_edit_lock_ = true
+
+[node name="PlayerSpawner" type="Marker2D" parent="PlayerManager"]
+unique_name_in_owner = true
+
+[node name="GhostTriggers" type="Node" parent="PlayerManager"]

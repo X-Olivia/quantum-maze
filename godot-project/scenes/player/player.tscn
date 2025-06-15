@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://dc48ny41eioxu"]
+
+[ext_resource type="Script" uid="uid://xi0nm87nmggy" path="res://scripts/player/player.gd" id="1_07b7t"]
+[ext_resource type="Texture2D" uid="uid://dujpp1ye64bu0" path="res://assets/images/player/player-particle.png" id="2_wb3yv"]
+[ext_resource type="PackedScene" uid="uid://de86ml1dncv3y" path="res://scenes/player/dash_ability.tscn" id="3_px65t"]
+[ext_resource type="PackedScene" uid="uid://blyj8t5o3virr" path="res://scenes/player/parry_ability.tscn" id="4_q8fec"]
+[ext_resource type="Script" uid="uid://wvsqavednhty" path="res://scripts/player/shoot_ability.gd" id="5_2rlvo"]
+[ext_resource type="PackedScene" uid="uid://bgraxiwqkmoqj" path="res://scenes/player/entanglement_ability.tscn" id="6_de5cm"]
+[ext_resource type="Texture2D" uid="uid://cima3alpf2g8r" path="res://assets/images/objects/light.tres" id="7_0owmy"]
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 1
+collision_mask = 122
+script = ExtResource("1_07b7t")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+z_index = -1
+color = Color(0.6, 0.7, 1, 0.7)
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_item_cull_mask = 3
+texture = ExtResource("7_0owmy")
+texture_scale = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("2_wb3yv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="WaveArea" type="Area2D" parent="."]
+collision_mask = 78
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaveArea"]
+
+[node name="DashAbility" parent="." instance=ExtResource("3_px65t")]
+unique_name_in_owner = true
+active = true
+
+[node name="ParryAbility" parent="." instance=ExtResource("4_q8fec")]
+unique_name_in_owner = true
+
+[node name="ShootAbility" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_2rlvo")
+active = true
+
+[node name="EntanglementAbility" parent="." instance=ExtResource("6_de5cm")]
+unique_name_in_owner = true
+active = true

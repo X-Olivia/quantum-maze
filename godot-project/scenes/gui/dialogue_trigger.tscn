@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0naxppi1fmob"]
+
+[ext_resource type="Script" uid="uid://b8w3vclx7h6wh" path="res://scripts/gui/dialogue_trigger.gd" id="1_fd8xu"]
+
+[node name="DialogueTrigger" type="Area2D"]
+collision_layer = 64
+script = ExtResource("1_fd8xu")
+metadata/_edit_group_ = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

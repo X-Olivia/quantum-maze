@@ -1,0 +1,189 @@
+[gd_scene load_steps=8 format=3 uid="uid://cv7hdt8jdnxsm"]
+
+[ext_resource type="Texture2D" uid="uid://1rnhrqr1syqa" path="res://assets/images/objects/water.png" id="1_gd186"]
+[ext_resource type="Texture2D" uid="uid://ieql4lsasovf" path="res://assets/images/objects/water2.png" id="2_rya16"]
+[ext_resource type="Texture2D" uid="uid://dujpp1ye64bu0" path="res://assets/images/player/player-particle.png" id="4_xmvti"]
+
+[sub_resource type="GDScript" id="GDScript_rya16"]
+script/source = "extends Node2D
+
+@onready var reflection = $reflection
+@onready var water = $Water
+
+var player = null
+var water_level = 0
+var reflection_opacity = 0.65
+var reflection_wave_effect = 0.04
+
+func _ready():
+	# Get the position of water surface to calculate reflection
+	water_level = water.position.y
+	
+	# Hide reflection initially
+	if reflection:
+		reflection.visible = false
+		reflection.modulate.a = reflection_opacity
+
+func _process(delta):
+	# Update reflection position based on player position
+	if player and reflection:
+		# Basic reflection math: reflect around the water level
+		var player_pos = player.global_position
+		var reflection_pos = Vector2(player_pos.x, 2 * water_level - player_pos.y)
+		
+		# Add subtle wave movement to the reflection
+		var time_offset = sin(Time.get_ticks_msec() * 0.001) * reflection_wave_effect
+		reflection_pos.x += time_offset * 8
+		
+		reflection.global_position = reflection_pos
+		reflection.scale.y = -1 # Flip vertically
+		
+		# Make reflection match player sprite
+		if player.has_node(\"Sprite2D\") and player.get_node(\"Sprite2D\").visible:
+			# Use the player's sprite texture
+			if player.get_node(\"Sprite2D\").texture:
+				reflection.texture = player.get_node(\"Sprite2D\").texture
+			
+			# Match player's sprite properties (optional)
+			var player_sprite = player.get_node(\"Sprite2D\")
+			reflection.scale.x = player_sprite.scale.x
+			reflection.rotation = -player_sprite.rotation # Invert rotation for reflection
+			reflection.visible = true
+			
+			# Pulse the opacity slightly for water effect
+			reflection.modulate.a = reflection_opacity + sin(Time.get_ticks_msec() * 0.002) * 0.08
+		else:
+			reflection.visible = false
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	# Check if the body is the player
+	if body is Player:
+		player = body
+		if reflection:
+			# Fade in the reflection
+			reflection.visible = true
+			var tween = create_tween()
+			tween.tween_property(reflection, \"modulate:a\", reflection_opacity, 0.5)
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	# Player left the area, hide reflection
+	if body is Player and body == player:
+		player = null
+		if reflection:
+			# Fade out the reflection
+			var tween = create_tween()
+			tween.tween_property(reflection, \"modulate:a\", 0, 0.5)
+			tween.tween_callback(func(): reflection.visible = false)
+"
+
+[sub_resource type="Shader" id="Shader_xmvti"]
+code = "shader_type canvas_item;
+
+uniform float speed : hint_range(0.01,0.2) = 0.08;
+uniform float strength : hint_range(0.01, 0.1) = 0.05;
+uniform float edge_softness : hint_range(0.0, 0.5) = 0.15;
+uniform float transparency : hint_range(0.0, 1.0) = 0.85;
+
+// Generate random noise
+float rand(vec2 coord) {
+	return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+// Generate noise
+float noise(vec2 coord) {
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+	
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+	
+	vec2 u = f * f * (3.0 - 2.0 * f);
+	
+	return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+
+// Calculate edge softness factor
+float calculate_edge_factor(vec2 uv) {
+    // Calculate distance from center
+    vec2 center = vec2(0.5, 0.5);
+    float dist = length((uv - center) * 2.0);
+    
+    // Create soft edges with custom falloff
+    float edge_start = 0.8;  // Start fading at this radius
+    float edge_end = 1.0;    // Complete fade at this radius
+    float edge_factor = 1.0 - smoothstep(edge_start, edge_end, dist);
+    
+    // Add some noise to the edge
+    float edge_noise = noise(uv * 5.0 + TIME * speed * 0.5) * 0.1;
+    edge_factor = edge_factor + edge_noise * edge_factor;
+    
+    return clamp(edge_factor, 0.0, 1.0);
+}
+
+void fragment() {
+    // Get base UV and add some movement
+    vec2 base_uv = UV;
+    vec2 coord = base_uv * 7.0;
+    float noise_value = noise(coord + TIME * speed);
+    
+    // Create wave distortion
+    vec2 distortion = vec2(noise_value * 0.7, noise_value * 0.3) * strength;
+    vec2 final_uv = base_uv - (strength / 3.0) + distortion;
+    
+    // Sample texture with distortion
+    vec4 color = texture(TEXTURE, final_uv);
+    
+    // Calculate edge factor
+    float edge = calculate_edge_factor(base_uv);
+    
+    // Apply transparency and edge effects
+    float alpha = color.a * edge * transparency;
+    
+    // Add some subtle color variation
+    vec3 final_color = color.rgb;
+    final_color += noise_value * 0.05; // Subtle brightness variation
+    
+    COLOR = vec4(final_color, alpha);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xmvti"]
+shader = SubResource("Shader_xmvti")
+shader_parameter/speed = 0.08
+shader_parameter/strength = 0.05
+shader_parameter/edge_softness = 0.15
+shader_parameter/transparency = 0.85
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_va7wv"]
+size = Vector2(1267, 679)
+
+[node name="End" type="Node2D"]
+scale = Vector2(0.4, 0.4)
+script = SubResource("GDScript_rya16")
+
+[node name="Water" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xmvti")
+position = Vector2(1260, 823)
+texture = ExtResource("1_gd186")
+
+[node name="PointLight2D" type="PointLight2D" parent="Water"]
+visible = false
+texture = ExtResource("2_rya16")
+height = 1.0
+
+[node name="reflection" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.627451)
+light_mask = 16
+position = Vector2(1162, 718)
+texture = ExtResource("4_xmvti")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1213.5, 769.5)
+shape = SubResource("RectangleShape2D_va7wv")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

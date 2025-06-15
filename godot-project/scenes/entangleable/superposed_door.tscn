@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctmgcwwchh6x5"]
+
+[ext_resource type="Texture2D" uid="uid://bjbw32smnn5qd" path="res://assets/images/objects/superposed_door.png" id="1_6ogdd"]
+[ext_resource type="Script" uid="uid://1lj10s8sul10" path="res://scripts/entangleable/superposed_door.gd" id="1_khoqt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dbnaq"]
+size = Vector2(200, 50)
+
+[node name="Superposed Door" type="StaticBody2D" groups=["Entangleable", "Untunnelable"]]
+collision_layer = 2
+collision_mask = 57
+script = ExtResource("1_khoqt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dbnaq")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(-3, 6)
+texture = ExtResource("1_6ogdd")

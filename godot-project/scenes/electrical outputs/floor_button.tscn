@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhlkga21shdcd"]
+
+[ext_resource type="Script" uid="uid://dl38kgi8vg1y7" path="res://scripts/electrical outputs/floor_button.gd" id="1_piltr"]
+[ext_resource type="Texture2D" uid="uid://qvy18hfruvq0" path="res://assets/images/electrical outputs/floor_button.png" id="1_v13g2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_70wtn"]
+radius = 60.0083
+
+[node name="Floor Button" type="Area2D" groups=["Output"]]
+collision_layer = 4
+script = ExtResource("1_piltr")
+
+[node name="Image" type="Sprite2D" parent="."]
+position = Vector2(2, 4)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("1_v13g2")
+
+[node name="Collision Area" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_70wtn")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

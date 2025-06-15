@@ -1,0 +1,1 @@
+Open when all input wires are carrying electricity, close otherwise.![[LeverButtonAndSwitchPrototype.png]]![[DoorPrototypes2.png]]![[DoorAndLightPrototype.png]]

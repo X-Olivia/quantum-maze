@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4tq4pter3q20"]
+
+[ext_resource type="Script" uid="uid://dwjisslq12apm" path="res://scripts/gui/tutorial_trigger.gd" id="2_wcnoa"]
+[ext_resource type="Texture2D" uid="uid://cdg6n6urhvnl3" path="res://assets/images/objects/tutorial_trigger.png" id="3_y3w1o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7qfhg"]
+radius = 72.5672
+
+[node name="TutorialTrigger" type="Area2D"]
+collision_layer = 64
+script = ExtResource("2_wcnoa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_7qfhg")
+
+[node name="TutorialTrigger" type="Sprite2D" parent="."]
+position = Vector2(15, 4)
+rotation = -0.00098025
+texture = ExtResource("3_y3w1o")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

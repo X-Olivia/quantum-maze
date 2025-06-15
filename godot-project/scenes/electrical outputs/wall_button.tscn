@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://cyyu8m1guoutk"]
+
+[ext_resource type="Script" uid="uid://la10nh2w8elj" path="res://scripts/electrical outputs/wall_button.gd" id="1_haj3x"]
+[ext_resource type="Texture2D" uid="uid://pj8i070235x4" path="res://assets/images/electrical outputs/wall_button_base.png" id="2_yvwrl"]
+[ext_resource type="Texture2D" uid="uid://bi066aocts6b2" path="res://assets/images/electrical outputs/wall_button.png" id="3_7lmu7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8f0jj"]
+size = Vector2(130, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50u7y"]
+size = Vector2(134, 68)
+
+[node name="Wall Button" type="Node2D" groups=["Output"]]
+script = ExtResource("1_haj3x")
+
+[node name="Collision" type="Area2D" parent="."]
+position = Vector2(0, -69)
+collision_layer = 64
+
+[node name="Collision Area" type="CollisionShape2D" parent="Collision"]
+shape = SubResource("RectangleShape2D_8f0jj")
+
+[node name="Base" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 25
+
+[node name="Base" type="Sprite2D" parent="Base"]
+position = Vector2(-4, 1)
+texture = ExtResource("2_yvwrl")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Base"]
+polygon = PackedVector2Array(-85, -20, -1, 6, 81, -21, 103, 31, -110, 32)
+
+[node name="Button" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 25
+
+[node name="Button" type="Sprite2D" parent="Button"]
+position = Vector2(0, -33.5)
+texture = ExtResource("3_7lmu7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button"]
+position = Vector2(0, -35)
+shape = SubResource("RectangleShape2D_50u7y")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

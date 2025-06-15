@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://c64vk4e4dtgcn"]
+
+[ext_resource type="Texture2D" uid="uid://dc07s86pq1i01" path="res://assets/images/electrical outputs/probability_detector_area.png" id="1_2kspe"]
+[ext_resource type="Script" path="res://scripts/electrical outputs/probability_detector.gd" id="1_xnela"]
+[ext_resource type="Texture2D" uid="uid://deqk75daox4dt" path="res://assets/images/electrical outputs/possibility_detector.png" id="2_n63uo"]
+[ext_resource type="Texture2D" uid="uid://x3rcn7srek6w" path="res://assets/images/objects/eyes.png" id="3_n4at6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4u8tp"]
+radius = 150.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4s5n"]
+atlas = ExtResource("3_n4at6")
+region = Rect2(210, 46, 100, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fse02"]
+atlas = ExtResource("3_n4at6")
+region = Rect2(10, 46, 100, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3tmg"]
+atlas = ExtResource("3_n4at6")
+region = Rect2(110, 46, 100, 107)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ugbac"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4s5n")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fse02")
+}],
+"loop": true,
+"name": &"narrow",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3tmg")
+}],
+"loop": true,
+"name": &"wide",
+"speed": 5.0
+}]
+
+[node name="Probability Detector" type="Area2D" groups=["Output"]]
+collision_layer = 4
+script = ExtResource("1_xnela")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4u8tp")
+
+[node name="ProbabilityDetectorArea" type="Sprite2D" parent="."]
+position = Vector2(21, -21)
+texture = ExtResource("1_2kspe")
+
+[node name="PossibilityDetector" type="Sprite2D" parent="."]
+texture = ExtResource("2_n63uo")
+
+[node name="Eye" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_ugbac")
+animation = &"narrow"
+autoplay = "narrow"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

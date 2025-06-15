@@ -1,0 +1,142 @@
+[gd_scene load_steps=8 format=3 uid="uid://bulbd7pok2g1l"]
+
+[ext_resource type="Script" uid="uid://cy6vjeq6g50br" path="res://scripts/gui/hud.gd" id="1_hnwbr"]
+[ext_resource type="Texture2D" uid="uid://c7cjpasjf1en8" path="res://assets/images/gui/tutorial1.png" id="2_xi7ec"]
+[ext_resource type="Texture2D" uid="uid://dgf8dy5ohpldm" path="res://assets/images/gui/dialogue1.png" id="3_r7wwy"]
+[ext_resource type="PackedScene" uid="uid://btokw6rqfx7og" path="res://scenes/gui/minimap.tscn" id="4_hgdjp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ueg55"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_qxonp"]
+font_size = 64
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb6hx"]
+bg_color = Color(0.196078, 0.329412, 0.47451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.258824, 0.388235, 0.54902, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hnwbr")
+
+[node name="TutorialBox" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+size_flags_horizontal = 3
+
+[node name="Tutorial1" type="Sprite2D" parent="TutorialBox"]
+position = Vector2(0, 102)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_xi7ec")
+
+[node name="TutorialText" type="RichTextLabel" parent="TutorialBox"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 0
+offset_left = -195.0
+offset_top = 62.0
+offset_right = 205.0
+offset_bottom = 112.0
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="DialogueBox" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -130.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Dialogue1" type="Sprite2D" parent="DialogueBox"]
+modulate = Color(1, 1, 1, 0.784314)
+scale = Vector2(0.520001, 0.520001)
+texture = ExtResource("3_r7wwy")
+
+[node name="DialogueText" type="RichTextLabel" parent="DialogueBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 140)
+layout_mode = 0
+offset_left = -300.0
+offset_top = -63.0
+offset_right = 300.0
+offset_bottom = 77.0
+fit_content = true
+scroll_active = false
+
+[node name="PageLabel" type="Label" parent="DialogueBox"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -19.0
+offset_top = -88.0
+offset_right = 21.0
+offset_bottom = -62.0
+text = "1 / 3"
+label_settings = SubResource("LabelSettings_ueg55")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="WaveCountdown" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -34.5
+offset_right = 34.5
+offset_bottom = 83.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 60
+text = "60"
+label_settings = SubResource("LabelSettings_qxonp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnergyBar" type="ProgressBar" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 70.0
+rounded = true
+
+[node name="Minimap" parent="." instance=ExtResource("4_hgdjp")]
+unique_name_in_owner = true
+offset_left = -217.0
+offset_top = 13.0
+offset_right = -15.0
+offset_bottom = 215.0
+
+[node name="EncyclopediaButton" type="Button" parent="."]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -63.0
+offset_top = 208.0
+offset_right = -23.0
+offset_bottom = 248.0
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_yb6hx")
+action_mode = 0
+text = ":)"
+
+[connection signal="pressed" from="EncyclopediaButton" to="." method="_on_encyclopedia_button_pressed"]
