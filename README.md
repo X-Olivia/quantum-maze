@@ -1,7 +1,5 @@
 # Quantum Maze Game
 
-![Quantum Maze Game Poster](poster.pdf)
-
 ## Welcome!
 
 Welcome to the immense and dangerous Quantum Maze, where nothing never makes sense!
